@@ -22,7 +22,7 @@ class TableDetails: UIViewController {
         delegate?.textDetailsChanged(text: detailsLabel.text)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }
     }
     
@@ -31,7 +31,7 @@ class TableDetails: UIViewController {
         delegate?.textDetailsChanged(text: detailsLabel.text)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            self.navigationController?.popViewController(animated: true)
+            self.dismiss(animated: true)
         }
     }
     

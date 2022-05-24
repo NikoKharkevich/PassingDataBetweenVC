@@ -15,6 +15,13 @@ class ViewControllerA: UIViewController {
     var items = ["India", "Brazil", "France"]
     var selectedIndexA: Int?
     
+    @IBAction func showBpressed(_ sender: UIButton) {
+        guard let viewControllerB = storyboard?.instantiateViewController(withIdentifier: "ViewControllerB") as? ViewControllerB else { return }
+        viewControllerB.text = textFieldA.text
+        viewControllerB.delegate = self
+        present(viewControllerB, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myTableView.delegate = self
@@ -27,21 +34,6 @@ class ViewControllerA: UIViewController {
         print(#function)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "toB" {
-            guard let destination = segue.destination as? ViewControllerB else { return }
-            destination.text = textFieldA.text
-            destination.delegate = self
-        }
-        else if segue.identifier == "toDetails" {
-            guard let destination = segue.destination as? TableDetails else { return }
-            guard let index = myTableView.indexPathForSelectedRow?.row else { return }
-            destination.text = items[index]
-            selectedIndexA = index
-            destination.delegate = self
-        }
-    }
 }
 
 extension ViewControllerA: ViewControllerBDelegate {
@@ -53,7 +45,7 @@ extension ViewControllerA: ViewControllerBDelegate {
 
 extension ViewControllerA: TableDetailsTextDelegate {
     func textDetailsChanged(text: String?) {
-        items[selectedIndexA ?? 1] = text!
+        items[selectedIndexA!] = text!
         print("TableDetailsTextDelegate called")
         self.myTableView.reloadData()
     }
@@ -74,6 +66,12 @@ extension ViewControllerA: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         myTableView.deselectRow(at: indexPath, animated: true)
         
+        guard let detailsVC = storyboard?.instantiateViewController(withIdentifier: "TableDetails") as? TableDetails else { return }
+        selectedIndexA = indexPath.row
+        detailsVC.text = items[selectedIndexA!]
+        detailsVC.delegate = self
+
+        present(detailsVC, animated: true)
     }
 }
 
