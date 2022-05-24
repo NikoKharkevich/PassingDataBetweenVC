@@ -19,7 +19,7 @@ class ViewControllerA: UIViewController {
         guard let viewControllerB = storyboard?.instantiateViewController(withIdentifier: "ViewControllerB") as? ViewControllerB else { return }
         viewControllerB.text = textFieldA.text
         viewControllerB.delegate = self
-        present(viewControllerB, animated: true)
+        navigationController?.pushViewController(viewControllerB, animated: true)
     }
     
     override func viewDidLoad() {
@@ -71,7 +71,7 @@ extension ViewControllerA: UITableViewDelegate, UITableViewDataSource {
         detailsVC.text = items[selectedIndexA!]
         detailsVC.delegate = self
 
-        present(detailsVC, animated: true)
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 

@@ -22,7 +22,7 @@ class ViewControllerB: UIViewController {
         delegate?.textChanged(text: labelB.text)
  
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.dismiss(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
         
     }
@@ -32,7 +32,7 @@ class ViewControllerB: UIViewController {
         delegate?.textChanged(text: labelB.text)
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-            self.dismiss(animated: true)
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
